@@ -1,8 +1,8 @@
 
 import json
-import os
-with open ('escuelas.json','r') as fichero:
-    doc=json.load(fichero)
+with open ("escuela.json") as fichero:
+    datos=json.load(fichero)
+
 
 #FUNCIONES
 
@@ -11,7 +11,7 @@ with open ('escuelas.json','r') as fichero:
 def limpiar_pantalla_continuar():
 	continuar = input("...\npulsa Enter para continuar")
 
-#1. Listar(basico): Esta función listará el nombre de todas las escuelas infantiles de madrid.
+#1. Listar: Esta función listará el nombre de todas las escuelas infantiles de madrid.
 
 def listar_escuelas(doc):
     escuelas = []
