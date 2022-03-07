@@ -1,10 +1,10 @@
-
 import json
 with open ("escuela.json") as fichero:
     datos=json.load(fichero)
 
 
 #FUNCIONES
+
 
 # Limpiar pantalla
 
@@ -69,7 +69,7 @@ def libre(doc,nombre):
 
 #MENU
 while True:
-    os.system('clear')
+   
     print ()
     print ("______________________ESCUELAS INFANTILES______________________")
     print()
@@ -84,22 +84,22 @@ while True:
 
     #Listar nombre de escuelas
     if opcion == "1":   
-        for escuela in listar_escuelas(doc):
+        for escuela in listar_escuelas(datos):
             print(escuela)
         # Tambien muestra cuantas escuelas hay en total
         print()
-        print("Hay en total: ",len(listar_escuelas(doc))," escuelas.")
+        print("Hay en total: ",len(listar_escuelas(datos))," escuelas.")
         limpiar_pantalla_continuar()
     
 
 
     #Muestra el numero total de escuelas con el servicio de educacion que comprenden las edades de 0 a 3. Y lista las escuelas que son si el usuario lo pide.
     elif opcion == "2":
-        print("Hay ",len(cuenta_servicio(doc))," escuelas con el servicio de Educación de 0 a 3 años.")
+        print("Hay ",len(cuenta_servicio(datos))," escuelas con el servicio de Educación de 0 a 3 años.")
         respuesta = input("¿Quieres saber cuáles son? (S/N): ")
         print()
         if respuesta.upper() == "S":
-            for escuela in cuenta_servicio(doc):
+            for escuela in cuenta_servicio(datos):
                 print(escuela)
             limpiar_pantalla_continuar()
         elif respuesta.upper() == "N":
@@ -114,7 +114,7 @@ while True:
         print()
         
         servicios = []
-        for i in doc["@graph"]:
+        for i in datos["@graph"]:
             servicios.append(i["organization"]["services"])
         print("Servicios extra registrados:")
         print("-Comedor\n-Horario ampliado\n-Educación de 0 a 3 años")
@@ -129,7 +129,7 @@ while True:
             servicio = input("\nIntroduce el servicio deseado:")
             servicio = servicio.capitalize()
 
-        for escuela,direccion in zip (filtrar_escuelas_servicios(doc,servicio)[0],filtrar_escuelas_servicios(doc,servicio)[1]):
+        for escuela,direccion in zip (filtrar_escuelas_servicios(datos,servicio)[0],filtrar_escuelas_servicios(datos,servicio)[1]):
             print("\nESCUELA: ",escuela,"\nDIRECCION: ",direccion)
             
         limpiar_pantalla_continuar()
@@ -137,7 +137,7 @@ while True:
     #Introduciendo un codigo postal muestra las escuelas que hay en ese municipio con su direccion.
     elif opcion == "4":
         cps=[]
-        for i in doc["@graph"]:
+        for i in datos["@graph"]:
             cps.append(i["address"]["postal-code"])
 
         cp = input("Introduce un codigo postal: ")
@@ -158,7 +158,7 @@ while True:
                 print("Valor erróneo.")
                 continue
 
-        for escuela,direccion in zip (informacion_relacionada(doc,cp)[0],informacion_relacionada(doc,cp)[1]):
+        for escuela,direccion in zip (informacion_relacionada(datos,cp)[0],informacion_relacionada(datos,cp)[1]):
             print("\nESCUELA: ",escuela,"\nDIRECCIÓN: ",direccion)
         limpiar_pantalla_continuar()
 
@@ -173,14 +173,14 @@ while True:
             respuesta = input("¿Desea listar las escuelas? (S/N): ")
         if respuesta.upper() == "S":
             print("LISTA DE ESCUELAS")
-            for escuela in listar_escuelas(doc):
+            for escuela in listar_escuelas(datos):
                 print(escuela[27:])
         else:
             print("Ok.")
 
         nombre = input("\nIntroduce el nombre de la escuela:")
         
-        for org,serv in zip (libre(doc,nombre)[0],libre(doc,nombre)[1]):
+        for org,serv in zip (libre(datos,nombre)[0],libre(datos,nombre)[1]):
             print ("\nORGANIZACION: ",org,"\nSERVICIOS: ",serv)
         limpiar_pantalla_continuar()
     
